@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">v2exMe</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="v_hot">最热主题</string>
+    <string name="v_new">最新主题</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
