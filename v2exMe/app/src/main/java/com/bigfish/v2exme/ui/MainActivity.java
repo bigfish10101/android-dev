@@ -1,5 +1,7 @@
 package com.bigfish.v2exme.ui;
 
+import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 
 import Models.V2exFastNewsModel;
 import Models.V2exHotNewsModel;
+import cc.cloudist.acplibrary.ACProgressConstant;
+import cc.cloudist.acplibrary.ACProgressFlower;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
@@ -23,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private int viewPageIndex = -1;
 
     private V2exNetwork v2exNetwork;
+    private ACProgressFlower progressFlower;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         v2exNetwork = new V2exNetwork(this);
+        progressFlower = new ACProgressFlower.Builder(this).direction(ACProgressConstant.DIRECT_CLOCKWISE).themeColor(Color.WHITE).fadeColor(Color.DKGRAY).build();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -104,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
     // 获取网络数据
     public void getNews(int pageIndex) {
 
+        progressFlower.show();
         if (pageIndex == 0) {
 
             v2exNetwork.getHotNews(new V2exNetwork.HotNewsListener() {
@@ -111,12 +118,19 @@ public class MainActivity extends AppCompatActivity {
                 public void onSuccResponse(ArrayList<V2exHotNewsModel> responseList) {
 
                     Log.i("getHotNews onSucc", String.valueOf(responseList.size()));
+                    progressFlower.hide();
+
+                    INewsFragment iNewsFragment = viewPageAdapter.hotINewsFragment();
+                    if (iNewsFragment != null) {
+                        iNewsFragment.reloadDatas(responseList);
+                    }
                 }
 
                 @Override
                 public void onFailResponse() {
 
                     Log.i("getHotNews onFail", "Error!");
+                    progressFlower.hide();
                 }
             });
         } else {
@@ -126,12 +140,19 @@ public class MainActivity extends AppCompatActivity {
                 public void onSuccResponse(ArrayList<V2exFastNewsModel> responseList) {
 
                     Log.i("getFastNews onSucc", String.valueOf(responseList.size()));
+                    progressFlower.hide();
+
+                    INewsFragment iNewsFragment = viewPageAdapter.fastINewsFragment();
+                    if (iNewsFragment != null) {
+                        iNewsFragment.reloadDatas(responseList);
+                    }
                 }
 
                 @Override
                 public void onFailResponse() {
 
                     Log.i("getFastNews onFail", "Error!");
+                    progressFlower.hide();
                 }
             });
         }

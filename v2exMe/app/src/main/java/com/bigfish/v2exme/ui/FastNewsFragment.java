@@ -6,14 +6,25 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.bigfish.v2exme.R;
 
+import java.util.ArrayList;
 
-public class FastNewsFragment extends Fragment {
+
+public class FastNewsFragment extends Fragment implements INewsFragment {
+
+    private View fragmentView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
-        return inflater.inflate(R.layout.fragment_view, container, false);
+        fragmentView = inflater.inflate(R.layout.fast_news_fragment, container, false);
+        return fragmentView;
+    }
+
+    public void reloadDatas(ArrayList<?> list) {
+
+        ListView listView = (ListView)fragmentView.findViewById(R.id.fast_news_listview);
     }
 }
