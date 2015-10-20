@@ -11,18 +11,26 @@ import com.bigfish.v2exme.R;
 
 import net.V2exNetwork;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
-    ViewPager viewPager;
-    ViewPageAdapter viewPageAdapter;
-    int viewPageIndex = -1;
+    private ViewPager viewPager;
+    private ViewPageAdapter viewPageAdapter;
+    private int viewPageIndex = -1;
+
+    private V2exNetwork v2exNetwork;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        v2exNetwork = new V2exNetwork(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 
         // 设置Tabs
         viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager());
@@ -85,6 +93,76 @@ public class MainActivity extends AppCompatActivity {
             hotNewsTextView.setTextColor(getResources().getColor(R.color.unSelColor));
             fastNewsTextView.setTextColor(getResources().getColor(R.color.selColor));
         }
+
+        this.getNews(pageIndex);
+    }
+
+    // 获取网络数据
+    public void getNews(int pageIndex) {
+
+        if (pageIndex == 0) {
+
+            v2exNetwork.getHotNews(new V2exNetwork.HotNewsListener() {
+                @Override
+                public void onSuccResponse(ArrayList<?> responseList) {
+
+                }
+
+                @Override
+                public void onFailResponse() {
+
+                }
+            });
+        } else {
+
+            v2exNetwork.getFastNews(new V2exNetwork.FastNewsListener() {
+                @Override
+                public void onSuccResponse(ArrayList<?> responseList) {
+
+                }
+
+                @Override
+                public void onFailResponse() {
+
+                }
+            });
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
