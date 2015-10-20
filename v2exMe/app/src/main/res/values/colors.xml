@@ -8,4 +8,9 @@
 
     <color name="selColor">#646464</color>
     <color name="unSelColor">#B0B0B0</color>
+
+    <color name="titleColor">#646464</color>
+    <color name="nodeColor">#B0B0B0</color>
+    <color name="usernameColor">#646464</color>
+    <color name="replyBkColor">#ABABBF</color>
 </resources>

@@ -12,10 +12,13 @@ import com.bigfish.v2exme.R;
 
 import java.util.ArrayList;
 
+import Models.V2exBaseModel;
+
 public class HotNewsFragment extends Fragment implements INewsFragment {
 
     private View fragmentView;
     private ListView listView;
+    private IFragmentTapListener iFragmentTapListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
@@ -27,7 +30,19 @@ public class HotNewsFragment extends Fragment implements INewsFragment {
     public void reloadDatas(ArrayList<?> list) {
 
         NewsAdapter newsAdapter = new NewsAdapter(getActivity().getApplicationContext());
-        newsAdapter.setDataList(list);
+        newsAdapter.setDataList(list, new NewsAdapter.TapAdapterViewListener() {
+            @Override
+            public void tapUserName(V2exBaseModel model) {
+
+                if (iFragmentTapListener != null) {
+                    iFragmentTapListener.tapFragmentListUserName(model);
+                }
+            }
+        });
         listView.setAdapter(newsAdapter);
+    }
+
+    public void addFragmentTapListener(IFragmentTapListener iFragmentTapListener) {
+        this.iFragmentTapListener = iFragmentTapListener;
     }
 }

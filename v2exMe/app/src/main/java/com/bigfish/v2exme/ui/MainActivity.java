@@ -1,6 +1,7 @@
 package com.bigfish.v2exme.ui;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -16,12 +17,16 @@ import net.V2exNetwork;
 
 import java.util.ArrayList;
 
+import Models.V2exBaseModel;
 import Models.V2exFastNewsModel;
 import Models.V2exHotNewsModel;
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IFragmentTapListener {
+
+    public final static String PROFILE_ACTIVITY_USERNAME = "com.profile.activity.username";
+
     private ViewPager viewPager;
     private ViewPageAdapter viewPageAdapter;
     private int viewPageIndex = -1;
@@ -47,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager)findViewById(R.id.pager);
         viewPager.setPageMargin(0);
         viewPager.setAdapter(viewPageAdapter);
+        viewPageAdapter.addFragmentTapListener(this);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -157,6 +163,18 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
+
+    public void tapFragmentListUserName(V2exBaseModel model) {
+
+        if (model == null) return;
+
+        Log.i("tap", model.memberModel.username);
+
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra(PROFILE_ACTIVITY_USERNAME, model.memberModel.username);
+        startActivity(intent);
+    }
+
 }
 
 

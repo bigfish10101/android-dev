@@ -4,15 +4,76 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="90dp"
         android:orientation="horizontal"
         >
 
         <com.android.volley.toolbox.NetworkImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/avatar_image_view"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:textSize="16dp"
+                android:textAlignment="gravity"
+                android:paddingLeft="10dp"
+                android:textColor="@color/titleColor"
+                android:lines="2"
+                android:id="@+id/list_item_title"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:paddingLeft="10dp"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="44dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/tapBackgroudColor"
+                    android:textSize="13dp"
+                    android:textColor="@color/nodeColor"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:id="@+id/node_name"
+                    />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="6dp"
+                    android:textSize="13dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="@color/usernameColor"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/user_name_title"
+                    />
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="6dp"
+                    android:textSize="13dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/replyBkColor"
+                    android:id="@+id/replies_num"
+                    />
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 </RelativeLayout>

@@ -41,4 +41,15 @@ public class ViewPageAdapter extends FragmentStatePagerAdapter {
     INewsFragment fastINewsFragment() {
         return fastNewsFragment;
     }
+
+    public void addFragmentTapListener(IFragmentTapListener iFragmentTapListener){
+
+        if (hotNewsFragment != null) {
+            hotNewsFragment.addFragmentTapListener(iFragmentTapListener);
+        }
+
+        if (fastNewsFragment != null) {
+            fastNewsFragment.addFragmentTapListener(iFragmentTapListener);
+        }
+    }
 }

@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.android.volley.*;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -20,6 +21,8 @@ public class V2exNetwork {
 
     public static String hotnews_url = "https://www.v2ex.com/api/topics/hot.json";
     public static String fastnews_url = "https://www.v2ex.com/api/topics/latest.json";
+    public static String node_url = "https://www.v2ex.com/api/nodes/show.json";
+    public static String profile_url = "https://www.v2ex.com/api/members/show.json";
 
     public interface HotNewsListener {
         public void onSuccResponse(ArrayList<V2exHotNewsModel> responseList);
@@ -30,6 +33,12 @@ public class V2exNetwork {
         public void onSuccResponse(ArrayList<V2exFastNewsModel> responseList);
         public void onFailResponse();
     }
+
+    public interface ProfileListener {
+        public void onSuccResponse(V2exProfileModel model);
+        public void onFailResponse();
+    }
+
 
     private RequestQueue requestQueue;
 
@@ -174,6 +183,29 @@ public class V2exNetwork {
             public void onErrorResponse(VolleyError error) {
 
                 Log.i("getFastNews", "error" + error.toString());
+
+                callback.onFailResponse();
+            }
+        });
+
+        requestQueue.add(request);
+    }
+
+    public void getProfile(String username, final ProfileListener callback) {
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, profile_url + "?username=" + username, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Log.i("getPrifile succ ", response.toString());
+
+                callback.onSuccResponse(null);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Log.i("getProfile fail", error.toString());
 
                 callback.onFailResponse();
             }
