@@ -13,6 +13,8 @@ import net.V2exNetwork;
 
 import java.util.ArrayList;
 
+import Models.V2exHotNewsModel;
+
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ViewPageAdapter viewPageAdapter;
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
             v2exNetwork.getHotNews(new V2exNetwork.HotNewsListener() {
                 @Override
-                public void onSuccResponse(ArrayList<?> responseList) {
+                public void onSuccResponse(ArrayList<V2exHotNewsModel> responseList) {
 
                 }
 
