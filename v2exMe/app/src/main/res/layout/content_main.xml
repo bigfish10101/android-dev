@@ -40,6 +40,18 @@
             android:onClick="tapFastNews"
             android:textColor="@color/unSelColor"
             />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/v_node"
+            android:layout_weight="1"
+            android:id="@+id/nodenews"
+            android:textAlignment="center"
+            android:textSize="17dp"
+            android:gravity="center"
+            android:onClick="tapNodeNews"
+            android:textColor="@color/unSelColor"
+            />
     </LinearLayout>
 
     <android.support.v4.view.ViewPager

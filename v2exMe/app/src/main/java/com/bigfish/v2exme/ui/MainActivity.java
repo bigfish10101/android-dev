@@ -90,6 +90,14 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
         viewPager.setCurrentItem(1);
     }
 
+    // 点击节点
+    public void tapNodeNews(View v) {
+
+        Log.i("tapNodeNews", "tapNode.news...");
+        this.movePage(2);
+        viewPager.setCurrentItem(2);
+    }
+
     // 切换页面
     public void movePage(int pageIndex) {
 
@@ -97,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
 
         TextView hotNewsTextView = (TextView)findViewById(R.id.hotnews);
         TextView fastNewsTextView = (TextView)findViewById(R.id.fastnews);
+        TextView nodeTextView = (TextView)findViewById(R.id.nodenews);
 
         viewPageIndex = pageIndex;
 
@@ -104,10 +113,17 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
 
             hotNewsTextView.setTextColor(getResources().getColor(R.color.selColor));
             fastNewsTextView.setTextColor(getResources().getColor(R.color.unSelColor));
-        } else {                // 获取最新新闻
+            nodeTextView.setTextColor(getResources().getColor(R.color.unSelColor));
+        } else if (pageIndex == 1) {                // 获取最新新闻
 
             hotNewsTextView.setTextColor(getResources().getColor(R.color.unSelColor));
             fastNewsTextView.setTextColor(getResources().getColor(R.color.selColor));
+            nodeTextView.setTextColor(getResources().getColor(R.color.unSelColor));
+        } else if (pageIndex == 2) {
+
+            hotNewsTextView.setTextColor(getResources().getColor(R.color.unSelColor));
+            fastNewsTextView.setTextColor(getResources().getColor(R.color.unSelColor));
+            nodeTextView.setTextColor(getResources().getColor(R.color.selColor));
         }
 
         progressFlower.show();
@@ -116,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
 
     // 获取网络数据
     public void getNews(int pageIndex) {
-        
+
         if (pageIndex == 0) {
 
             v2exNetwork.getHotNews(new V2exNetwork.HotNewsListener() {
@@ -139,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
                     progressFlower.hide();
                 }
             });
-        } else {
+        } else if (pageIndex == 1) {
 
             v2exNetwork.getFastNews(new V2exNetwork.FastNewsListener() {
                 @Override
@@ -161,6 +177,8 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
                     progressFlower.hide();
                 }
             });
+        } else {
+
         }
     }
 

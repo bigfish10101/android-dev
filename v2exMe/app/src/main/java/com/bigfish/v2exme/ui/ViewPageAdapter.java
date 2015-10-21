@@ -9,23 +9,26 @@ public class ViewPageAdapter extends FragmentStatePagerAdapter {
 
     private HotNewsFragment hotNewsFragment;
     private FastNewsFragment fastNewsFragment;
+    private NodesFragment nodesFragment;
 
     public ViewPageAdapter(FragmentManager fm) {
         super(fm);
 
         hotNewsFragment = new HotNewsFragment();
         fastNewsFragment = new FastNewsFragment();
+        nodesFragment = new NodesFragment();
     }
 
     @Override
     public Fragment getItem(int position) {
         if (position == 0) return hotNewsFragment;
-        return fastNewsFragment;
+        if (position == 1) return fastNewsFragment;
+        return nodesFragment;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -41,6 +44,8 @@ public class ViewPageAdapter extends FragmentStatePagerAdapter {
     INewsFragment fastINewsFragment() {
         return fastNewsFragment;
     }
+
+    INewsFragment nodeINewsFrgment() { return nodesFragment; }
 
     public void addFragmentTapListener(IFragmentTapListener iFragmentTapListener){
 
