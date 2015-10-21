@@ -110,13 +110,13 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
             fastNewsTextView.setTextColor(getResources().getColor(R.color.selColor));
         }
 
+        progressFlower.show();
         this.getNews(pageIndex);
     }
 
     // 获取网络数据
     public void getNews(int pageIndex) {
-
-        progressFlower.show();
+        
         if (pageIndex == 0) {
 
             v2exNetwork.getHotNews(new V2exNetwork.HotNewsListener() {
@@ -175,6 +175,15 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
         startActivity(intent);
     }
 
+    public void refreshHotNews() {
+
+        getNews(0);
+    }
+
+    public void refreshFastNews() {
+
+        getNews(1);
+    }
 }
 
 

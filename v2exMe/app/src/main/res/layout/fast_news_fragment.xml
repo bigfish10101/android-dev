@@ -2,9 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
     android:layout_height="fill_parent" tools:context="com.bigfish.v2exme.ui.ViewFragment">
 
-    <ListView
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fast_news_listview"
-        ></ListView>
+        android:id="@+id/fast_news_pull_refresh_layout"
+        >
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fast_news_listview"
+            ></ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

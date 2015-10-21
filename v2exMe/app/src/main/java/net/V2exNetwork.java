@@ -199,7 +199,34 @@ public class V2exNetwork {
 
                 Log.i("getPrifile succ ", response.toString());
 
-                callback.onSuccResponse(null);
+                if (response != null) {
+
+                    V2exProfileModel model = new V2exProfileModel();
+                    try {
+                        model.status = response.getString("status");
+                        model.iid = response.getString("id");
+                        model.username = response.getString("username");
+                        model.website = response.getString("website");
+                        model.twitter = response.getString("twitter");
+                        model.psn = response.getString("psn");
+                        model.github = response.getString("github");
+                        model.btc = response.getString("btc");
+                        model.location = response.getString("location");
+                        model.tagline = response.getString("tagline");
+                        model.bio = response.getString("bio");
+                        model.avatar_mini = response.getString("avatar_mini");
+                        model.avatar_large = response.getString("avatar_large");
+                        model.avatar_normal = response.getString("avatar_normal");
+                        model.created = response.getString("created");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    callback.onSuccResponse(model);
+                } else {
+
+                    callback.onFailResponse();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
