@@ -56,5 +56,9 @@ public class ViewPageAdapter extends FragmentStatePagerAdapter {
         if (fastNewsFragment != null) {
             fastNewsFragment.addFragmentTapListener(iFragmentTapListener);
         }
+
+        if (nodesFragment != null) {
+            nodesFragment.addFragmentTapListener(iFragmentTapListener);
+        }
     }
 }

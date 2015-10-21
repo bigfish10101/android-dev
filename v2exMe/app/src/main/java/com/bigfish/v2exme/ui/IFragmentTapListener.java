@@ -10,4 +10,5 @@ public interface IFragmentTapListener {
     public void tapFragmentListUserName(V2exBaseModel model);
     public void refreshHotNews();
     public void refreshFastNews();
+    public void refreshNodeNews();
 }

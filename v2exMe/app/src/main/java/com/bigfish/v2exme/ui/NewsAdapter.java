@@ -3,14 +3,12 @@ package com.bigfish.v2exme.ui;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.util.Log;
 import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.view.View;
-import android.support.v4.app.Fragment;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -19,7 +17,6 @@ import com.android.volley.toolbox.Volley;
 import com.bigfish.v2exme.R;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import com.android.volley.*;
 

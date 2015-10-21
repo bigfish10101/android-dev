@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import Models.V2exBaseModel;
 import Models.V2exFastNewsModel;
 import Models.V2exHotNewsModel;
+import Models.V2exNodeListModel;
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
 
@@ -179,6 +180,24 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
             });
         } else {
 
+            v2exNetwork.getNodeNews(new V2exNetwork.NodeNewsListener() {
+                @Override
+                public void onSuccResponse(ArrayList<V2exNodeListModel> responseList) {
+
+                    progressFlower.hide();
+
+                    INewsFragment iNewsFragment = viewPageAdapter.nodeINewsFrgment();
+                    if (iNewsFragment != null) {
+                        iNewsFragment.reloadDatas(responseList);
+                    }
+                }
+
+                @Override
+                public void onFailResponse() {
+
+                    progressFlower.hide();
+                }
+            });
         }
     }
 
@@ -201,6 +220,11 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
     public void refreshFastNews() {
 
         getNews(1);
+    }
+
+    public void refreshNodeNews() {
+
+        getNews(2);
     }
 }
 

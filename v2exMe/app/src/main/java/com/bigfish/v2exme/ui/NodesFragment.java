@@ -20,6 +20,7 @@ public class NodesFragment extends Fragment implements INewsFragment {
     private View fragmentView;
     private ListView listView;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private IFragmentTapListener iFragmentTapListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
@@ -30,6 +31,10 @@ public class NodesFragment extends Fragment implements INewsFragment {
             swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
+
+                    if (iFragmentTapListener != null) {
+                        iFragmentTapListener.refreshNodeNews();
+                    }
                 }
             });
         }
@@ -39,5 +44,20 @@ public class NodesFragment extends Fragment implements INewsFragment {
     @Override
     public void reloadDatas(ArrayList<?> list) {
 
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
+        NodesAdapter nodesAdapter = new NodesAdapter(getActivity().getApplicationContext());
+        nodesAdapter.setDateList(list);
+
+        if (listView != null) {
+
+            listView.setAdapter(nodesAdapter);
+        }
+    }
+
+    public void addFragmentTapListener(IFragmentTapListener iFragmentTapListener) {
+        this.iFragmentTapListener = iFragmentTapListener;
     }
 }

@@ -42,7 +42,7 @@ public class V2exNetwork {
     }
 
     public interface NodeNewsListener {
-        public void onSuccResponse();
+        public void onSuccResponse(ArrayList<V2exNodeListModel> responseList);
         public void onFailResponse();
     }
 
@@ -250,13 +250,45 @@ public class V2exNetwork {
 
     public void getNodeNews(final NodeNewsListener callback) {
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, all_node_url, new Response.Listener<JSONArray>() {
+        final JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, all_node_url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
                 Log.i("getNodeNews", response.toString());
 
-                callback.onSuccResponse();
+                ArrayList<V2exNodeListModel> list = new ArrayList<V2exNodeListModel>();
+                for (int i = 0; i < response.length(); i ++) {
+
+                    try {
+                        JSONObject object = response.getJSONObject(i);
+                        if (object != null) {
+
+                            V2exNodeListModel model = new V2exNodeListModel();
+                            model.iid = object.getString("id");
+                            model.vname = object.getString("name");
+                            model.title = object.getString("title");
+                            model.title_alternative = object.getString("title_alternative");
+                            model.topics = object.getString("topics");
+                            model.header = object.getString("header");
+                            model.footer = object.getString("footer");
+                            model.created = object.getString("created");
+
+                            if (object.isNull("header")) {
+                                model.header = null;
+                            }
+
+                            if (object.isNull("footer")) {
+                                model.footer = null;
+                            }
+
+                            list.add(model);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                callback.onSuccResponse(list);
             }
         }, new Response.ErrorListener() {
             @Override
