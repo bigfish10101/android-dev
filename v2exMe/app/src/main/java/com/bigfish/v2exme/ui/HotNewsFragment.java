@@ -6,8 +6,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.util.Log;
 
 import com.bigfish.v2exme.R;
 
@@ -21,21 +23,44 @@ public class HotNewsFragment extends Fragment implements INewsFragment {
     private ListView listView;
     private IFragmentTapListener iFragmentTapListener;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ArrayList<?> hotList;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
         fragmentView = inflater.inflate(R.layout.hot_news_fragment, container, false);
         listView = (ListView)fragmentView.findViewById(R.id.hot_news_listview);
-        swipeRefreshLayout = (SwipeRefreshLayout)fragmentView.findViewById(R.id.hot_news_pull_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
 
-                if (iFragmentTapListener != null) {
-                    iFragmentTapListener.refreshHotNews();
+        if (listView != null) {
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    Log.i("onItemClickListener ", String.valueOf(position));
+
+                    if (position < hotList.size()) {
+
+                        if (iFragmentTapListener != null) {
+
+                            iFragmentTapListener.tapHotNewsItem((V2exBaseModel)hotList.get(position));
+                        }
+                    }
                 }
-            }
-        });
+            });
+        }
+
+        swipeRefreshLayout = (SwipeRefreshLayout)fragmentView.findViewById(R.id.hot_news_pull_refresh_layout);
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+
+                    if (iFragmentTapListener != null) {
+                        iFragmentTapListener.refreshHotNews();
+                    }
+                    }
+            });
+        }
         return fragmentView;
     }
 
@@ -44,6 +69,8 @@ public class HotNewsFragment extends Fragment implements INewsFragment {
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setRefreshing(false);
         }
+
+        hotList = list;
 
         NewsAdapter newsAdapter = new NewsAdapter(getActivity().getApplicationContext());
         newsAdapter.setDataList(list, new NewsAdapter.TapAdapterViewListener() {

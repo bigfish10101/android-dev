@@ -25,6 +25,11 @@
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".ui.NodeTopicsActivity"
+            android:label="@string/title_activity_node_topics"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

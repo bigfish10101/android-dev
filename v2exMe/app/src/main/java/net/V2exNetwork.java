@@ -25,6 +25,7 @@ public class V2exNetwork {
     public static String profile_url = "https://www.v2ex.com/api/members/show.json";
     public static String all_node_url = "http://www.v2ex.com/api/nodes/all.json";
     public static String replies_url = "http://www.v2ex.com/api/replies/show.json";
+    public static String node_topics_url = "http://www.v2ex.com/api/topics/show.json";
 
     public interface HotNewsListener {
         public void onSuccResponse(ArrayList<V2exHotNewsModel> responseList);
@@ -43,6 +44,11 @@ public class V2exNetwork {
 
     public interface NodeNewsListener {
         public void onSuccResponse(ArrayList<V2exNodeListModel> responseList);
+        public void onFailResponse();
+    }
+
+    public interface NodeTopicsListener {
+        public void onSuccResponse(ArrayList<V2exTopicModel> responseList);
         public void onFailResponse();
     }
 
@@ -301,5 +307,23 @@ public class V2exNetwork {
         });
 
         requestQueue.add(request);
+    }
+
+    public void getNodeTopics(String node_id, final NodeTopicsListener callback) {
+
+        String url = node_topics_url + "?" + "node_id=" + node_id;
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                callback.onSuccResponse(null);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                callback.onFailResponse();
+            }
+        });
     }
 }

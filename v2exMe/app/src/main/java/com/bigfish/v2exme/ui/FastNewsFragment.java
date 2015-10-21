@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.bigfish.v2exme.R;
@@ -22,21 +23,42 @@ public class FastNewsFragment extends Fragment implements INewsFragment {
     private ListView listView;
     private IFragmentTapListener iFragmentTapListener;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ArrayList<?> fastList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
         fragmentView = inflater.inflate(R.layout.fast_news_fragment, container, false);
         listView = (ListView)fragmentView.findViewById(R.id.fast_news_listview);
-        swipeRefreshLayout = (SwipeRefreshLayout)fragmentView.findViewById(R.id.fast_news_pull_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
+        if (listView != null) {
 
-                if (iFragmentTapListener != null) {
-                    iFragmentTapListener.refreshFastNews();
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    if (position < fastList.size()) {
+
+                        if (iFragmentTapListener != null) {
+
+                            iFragmentTapListener.tapFastNewsItem((V2exBaseModel)fastList.get(position));
+                        }
+                    }
                 }
-            }
-        });
+            });
+        }
+
+        swipeRefreshLayout = (SwipeRefreshLayout)fragmentView.findViewById(R.id.fast_news_pull_refresh_layout);
+
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+
+                    if (iFragmentTapListener != null) {
+                        iFragmentTapListener.refreshFastNews();
+                    }
+                }
+            });
+        }
         return fragmentView;
     }
 
@@ -45,6 +67,8 @@ public class FastNewsFragment extends Fragment implements INewsFragment {
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setRefreshing(false);
         }
+
+        fastList = list;
 
         NewsAdapter newsAdapter = new NewsAdapter(getActivity().getApplicationContext());
         newsAdapter.setDataList(list, new NewsAdapter.TapAdapterViewListener() {

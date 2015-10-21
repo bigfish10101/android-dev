@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
 
     public final static String PROFILE_ACTIVITY_USERNAME = "com.profile.activity.username";
 
+    public final static String NODE_TOPICS_ACTIVITY_NODEID = "com.node.topics.activity.node_id";
+    public final static String NODE_TOPICS_ACTIVITY_TITLE = "com.node.topics.activity.title";
+
     private ViewPager viewPager;
     private ViewPageAdapter viewPageAdapter;
     private int viewPageIndex = -1;
@@ -225,6 +228,20 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
     public void refreshNodeNews() {
 
         getNews(2);
+    }
+
+    public void tapHotNewsItem(V2exBaseModel model) {}
+
+    public void tapFastNewsItem(V2exBaseModel model) {}
+
+    public void tapNodeNewsItem(V2exNodeListModel model) {
+
+        if (model == null) return;
+
+        Intent intent = new Intent(this, NodeTopicsActivity.class);
+        intent.putExtra(NODE_TOPICS_ACTIVITY_NODEID, model.iid);
+        intent.putExtra(NODE_TOPICS_ACTIVITY_TITLE, model.title);
+        startActivity(intent);
     }
 }
 
