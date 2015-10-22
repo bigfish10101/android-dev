@@ -21,35 +21,39 @@ public class V2exNetwork {
 
     public static String hotnews_url = "https://www.v2ex.com/api/topics/hot.json";
     public static String fastnews_url = "https://www.v2ex.com/api/topics/latest.json";
-    public static String node_url = "https://www.v2ex.com/api/nodes/show.json";
     public static String profile_url = "https://www.v2ex.com/api/members/show.json";
     public static String all_node_url = "http://www.v2ex.com/api/nodes/all.json";
     public static String replies_url = "http://www.v2ex.com/api/replies/show.json";
     public static String node_topics_url = "http://www.v2ex.com/api/topics/show.json";
 
     public interface HotNewsListener {
-        public void onSuccResponse(ArrayList<V2exHotNewsModel> responseList);
-        public void onFailResponse();
+        void onSuccResponse(ArrayList<V2exHotNewsModel> responseList);
+        void onFailResponse();
     }
 
     public interface FastNewsListener {
-        public void onSuccResponse(ArrayList<V2exFastNewsModel> responseList);
-        public void onFailResponse();
+        void onSuccResponse(ArrayList<V2exFastNewsModel> responseList);
+        void onFailResponse();
     }
 
     public interface ProfileListener {
-        public void onSuccResponse(V2exProfileModel model);
-        public void onFailResponse();
+        void onSuccResponse(V2exProfileModel model);
+        void onFailResponse();
     }
 
     public interface NodeNewsListener {
-        public void onSuccResponse(ArrayList<V2exNodeListModel> responseList);
-        public void onFailResponse();
+        void onSuccResponse(ArrayList<V2exNodeListModel> responseList);
+        void onFailResponse();
     }
 
     public interface NodeTopicsListener {
-        public void onSuccResponse(ArrayList<V2exTopicModel> responseList);
-        public void onFailResponse();
+        void onSuccResponse(ArrayList<V2exTopicModel> responseList);
+        void onFailResponse();
+    }
+
+    public interface TopicRepliesListener {
+        void onSuccResponse(ArrayList<V2exTopicReplyModel> responseList);
+        void onFailResponse();
     }
 
 
@@ -314,6 +318,80 @@ public class V2exNetwork {
         String url = node_topics_url + "?" + "node_id=" + node_id;
 
         Log.i("getNodeTopics", url);
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                Log.i("getNodeTopics", response.toString());
+
+                ArrayList<V2exTopicModel> list = new ArrayList<V2exTopicModel>();
+                for (int i = 0; i < response.length(); i ++) {
+                    try {
+                        JSONObject obj = response.getJSONObject(i);
+                        if (obj != null) {
+                            V2exTopicModel model = new V2exTopicModel();
+                            model.iid = obj.getString("id");
+                            model.title = obj.getString("title");
+                            model.url = obj.getString("url");
+                            model.content = obj.getString("content");
+                            model.content_rendered = obj.getString("content_rendered");
+                            model.replies = obj.getString("replies");
+                            model.created = obj.getString("created");
+                            model.last_modified = obj.getString("last_modified");
+                            model.last_touched = obj.getString("last_touched");
+
+                            V2exMemberModel memberModel = new V2exMemberModel();
+                            JSONObject memberObj = obj.getJSONObject("member");
+                            if (memberObj != null) {
+                                memberModel.iid = memberObj.getString("id");
+                                memberModel.username = memberObj.getString("username");
+                                memberModel.tagline = memberObj.getString("tagline");
+                                memberModel.avatar_mini = memberObj.getString("avatar_mini");
+                                memberModel.avatar_normal = memberObj.getString("avatar_normal");
+                                memberModel.avatar_large = memberObj.getString("avatar_large");
+                            }
+                            model.memberModel = memberModel;
+
+                            V2exNodeModel nodeModel = new V2exNodeModel();
+                            JSONObject nodeObj = obj.getJSONObject("node");
+                            if (nodeObj != null) {
+                                nodeModel.iid = nodeObj.getString("id");
+                                nodeModel.vname = nodeObj.getString("name");
+                                nodeModel.title = nodeObj.getString("title");
+                                nodeModel.title_alternative = nodeObj.getString("title_alternative");
+                                nodeModel.url = nodeObj.getString("url");
+                                nodeModel.topics = nodeObj.getString("topics");
+                                nodeModel.avatar_mini = nodeObj.getString("avatar_mini");
+                                nodeModel.avatar_large = nodeObj.getString("avatar_large");
+                                nodeModel.avatar_normal = nodeObj.getString("avatar_normal");
+                            }
+                            model.nodeModel = nodeModel;
+
+                            list.add(model);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                callback.onSuccResponse(list);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                callback.onFailResponse();
+            }
+        });
+
+        requestQueue.add(request);
+    }
+
+    public void getTopicReplies(String topic_id, final TopicRepliesListener callback) {
+
+        String url = replies_url + "?" + "topic_id=" + topic_id;
+
+        Log.i("getTopicsReplies", url);
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, new Response.Listener<JSONArray>() {
             @Override
