@@ -312,6 +312,9 @@ public class V2exNetwork {
     public void getNodeTopics(String node_id, final NodeTopicsListener callback) {
 
         String url = node_topics_url + "?" + "node_id=" + node_id;
+
+        Log.i("getNodeTopics", url);
+
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -325,5 +328,7 @@ public class V2exNetwork {
                 callback.onFailResponse();
             }
         });
+
+        requestQueue.add(request);
     }
 }
