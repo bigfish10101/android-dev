@@ -27,4 +27,5 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'cc.cloudist.acplibrary:library:1.2.1'
     compile 'com.android.support:support-v4:21.0.+'
+    compile 'com.google.code.gson:gson:2.2.4'
 }

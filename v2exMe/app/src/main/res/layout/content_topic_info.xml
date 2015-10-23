@@ -10,4 +10,15 @@
     tools:showIn="@layout/activity_topic_info"
     tools:context="com.bigfish.v2exme.ui.TopicInfoActivity">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/topic_info_refresh_layout"
+        >
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 </RelativeLayout>

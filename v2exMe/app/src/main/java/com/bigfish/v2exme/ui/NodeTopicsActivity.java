@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.bigfish.v2exme.R;
+import com.google.gson.Gson;
 
 import net.V2exNetwork;
 
@@ -39,6 +40,14 @@ public class NodeTopicsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        toolbar.setNavigationIcon(R.drawable.back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         v2exNetwork = new V2exNetwork(this);
 
         progressFlower = new ACProgressFlower.Builder(this).direction(ACProgressConstant.DIRECT_CLOCKWISE).themeColor(Color.WHITE).fadeColor(Color.DKGRAY).build();
@@ -50,8 +59,20 @@ public class NodeTopicsActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    Intent intent = new Intent(getApplicationContext(), TopicInfoActivity.class);
-                    startActivity(intent);
+                    if (position < list.size()) {
+
+                        V2exBaseModel model = (V2exBaseModel)list.get(position);
+                        if (model != null) {
+
+                            Intent intent = new Intent(getApplicationContext(), TopicInfoActivity.class);
+
+                            Gson gson = new Gson();
+                            String json = gson.toJson(model);
+                            intent.putExtra(MainActivity.NODE_TOPIC_INFO_ACTIVITY_MODEL, json);
+
+                            startActivity(intent);
+                        }
+                    }
                 }
             });
         }

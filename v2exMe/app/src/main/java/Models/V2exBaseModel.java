@@ -1,9 +1,11 @@
 package Models;
 
+import java.io.Serializable;
+
 /**
  * Created by shirley on 15/10/20.
  */
-public class V2exBaseModel {
+public class V2exBaseModel implements Serializable {
     public String iid;
     public String title;
     public String url;

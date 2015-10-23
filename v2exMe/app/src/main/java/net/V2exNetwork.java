@@ -397,6 +397,8 @@ public class V2exNetwork {
             @Override
             public void onResponse(JSONArray response) {
 
+                Log.i("getTopicReplies", response.toString());
+
                 callback.onSuccResponse(null);
             }
         }, new Response.ErrorListener() {

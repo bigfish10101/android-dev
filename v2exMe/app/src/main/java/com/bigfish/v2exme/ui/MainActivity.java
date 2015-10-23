@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bigfish.v2exme.R;
+import com.google.gson.Gson;
 
 import net.V2exNetwork;
 
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
 
     public final static String NODE_TOPICS_ACTIVITY_NODEID = "com.node.topics.activity.node_id";
     public final static String NODE_TOPICS_ACTIVITY_TITLE = "com.node.topics.activity.title";
+    public final static String NODE_TOPIC_INFO_ACTIVITY_MODEL = "com.node.topic.info.activity.model";
 
     private ViewPager viewPager;
     private ViewPageAdapter viewPageAdapter;
@@ -282,6 +284,11 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
         if (model == null) return;
 
         Intent intent = new Intent(this, TopicInfoActivity.class);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(model);
+        intent.putExtra(MainActivity.NODE_TOPIC_INFO_ACTIVITY_MODEL, json);
+
         startActivity(intent);
     }
 
@@ -290,6 +297,11 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
         if (model == null) return;
 
         Intent intent = new Intent(this, TopicInfoActivity.class);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(model);
+        intent.putExtra(MainActivity.NODE_TOPIC_INFO_ACTIVITY_MODEL, json);
+
         startActivity(intent);
     }
 

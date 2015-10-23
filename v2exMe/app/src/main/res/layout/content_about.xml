@@ -9,4 +9,54 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_about" tools:context="com.bigfish.v2exme.ui.AboutActivity">
 
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/logo"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="110dp"
+        android:textAlignment="center"
+        android:text="V2exMe"
+        android:textSize="15dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="180dp"
+        android:textAlignment="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="https://github.com/bigfish10101/android-dev.git"
+        android:lines="2"
+        android:textColor="@color/selColor"
+        android:textSize="15dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="250dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textAlignment="center"
+        android:lines="2"
+        android:text="一个iOS开发者的Android学习. Just for fun!"
+        android:textColor="@color/selColor"
+        android:textSize="15dp"
+        />
+
 </RelativeLayout>
