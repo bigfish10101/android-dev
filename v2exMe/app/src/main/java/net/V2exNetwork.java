@@ -393,13 +393,49 @@ public class V2exNetwork {
 
         Log.i("getTopicsReplies", url);
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, new Response.Listener<JSONArray>() {
+        final JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
                 Log.i("getTopicReplies", response.toString());
 
-                callback.onSuccResponse(null);
+                ArrayList<V2exTopicReplyModel> list = new ArrayList<V2exTopicReplyModel>();
+                for (int i = 0; i < response.length(); i ++) {
+
+                    try {
+                        JSONObject object = response.getJSONObject(i);
+                        if (object != null) {
+
+                            V2exTopicReplyModel v2exTopicReplyModel = new V2exTopicReplyModel();
+
+                            v2exTopicReplyModel.iid = object.getString("id");
+                            v2exTopicReplyModel.thanks = object.getString("thanks");
+                            v2exTopicReplyModel.content = object.getString("content");
+                            v2exTopicReplyModel.content_rendered = object.getString("content_rendered");
+                            v2exTopicReplyModel.created = object.getString("created");
+                            v2exTopicReplyModel.last_modified = object.getString("last_modified");
+
+                            V2exMemberModel memberModel = new V2exMemberModel();
+                            JSONObject memberObj = object.getJSONObject("member");
+                            if (memberObj != null) {
+
+                                memberModel.iid = memberObj.getString("id");
+                                memberModel.username = memberObj.getString("username");
+                                memberModel.avatar_mini = memberObj.getString("avatar_mini");
+                                memberModel.avatar_large = memberObj.getString("avatar_large");
+                                memberModel.avatar_normal = memberObj.getString("avatar_normal");
+                            }
+                            v2exTopicReplyModel.memberModel = memberModel;
+
+                            list.add(v2exTopicReplyModel);
+                        }
+                    } catch (JSONException e) {
+
+                        e.printStackTrace();
+                    }
+                }
+
+                callback.onSuccResponse(list);
             }
         }, new Response.ErrorListener() {
             @Override
