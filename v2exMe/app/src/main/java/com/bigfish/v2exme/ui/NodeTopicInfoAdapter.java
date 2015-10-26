@@ -83,70 +83,75 @@ public class NodeTopicInfoAdapter extends BaseAdapter {
             if (getItemViewType(position) == 0) {
 
                 listItemView = LayoutInflater.from(context).inflate(R.layout.content_topic_head_item, parent, false);
-
-                TextView nodeTopicTitleTextView = (TextView) listItemView.findViewById(R.id.topic_info_title_text_view);
-                if (nodeTopicTitleTextView != null) {
-
-                    nodeTopicTitleTextView.setTypeface(null, Typeface.BOLD);
-                    nodeTopicTitleTextView.setText(v2exBaseModel.title);
-                }
-
-                NetworkImageView networkImageView = (NetworkImageView) listItemView.findViewById(R.id.topic_avatar_image_view);
-                if (networkImageView != null) {
-
-                    networkImageView.setImageUrl("https:" + v2exBaseModel.memberModel.avatar_large, imageLoader);
-                }
-
-                TextView topicInfoNodeNameTextView = (TextView) listItemView.findViewById(R.id.topic_info_node_name_text_view);
-                if (topicInfoNodeNameTextView != null) {
-
-                    topicInfoNodeNameTextView.setText(v2exBaseModel.nodeModel.title);
-                    topicInfoNodeNameTextView.setTypeface(null, Typeface.BOLD);
-                }
-
-                TextView topicInfoRepliesNumTextView = (TextView) listItemView.findViewById(R.id.topic_info_replies_num);
-                if (topicInfoRepliesNumTextView != null) {
-                    topicInfoRepliesNumTextView.setText(v2exBaseModel.replies);
-                }
-
-                TextView topicInfoUserNameTextView = (TextView) listItemView.findViewById(R.id.topic_info_user_name_title);
-                if (topicInfoUserNameTextView != null) {
-                    topicInfoUserNameTextView.setTypeface(null, Typeface.BOLD);
-                    topicInfoUserNameTextView.setText("@" + v2exBaseModel.memberModel.username);
-                }
             } else if (getItemViewType(position) == 1) {
 
                 listItemView = LayoutInflater.from(context).inflate(R.layout.content_topic_content_info, parent, false);
-
-                TextView contentInfoTextView = (TextView) listItemView.findViewById(R.id.topic_info_content_info_text_view);
-                if (contentInfoTextView != null) {
-
-                    contentInfoTextView.setText(v2exBaseModel.content);
-                }
             } else if (getItemViewType(position) == 2) {
 
                 listItemView = LayoutInflater.from(context).inflate(R.layout.content_topic_reply, parent, false);
+            }
+        }
 
-                int index = position - 2;
-                V2exTopicReplyModel v2exTopicReplyModel = (V2exTopicReplyModel)list.get(index);
-                if (v2exTopicReplyModel != null) {
+        if (getItemViewType(position) == 0) {
 
-                    NetworkImageView networkImageView = (NetworkImageView) listItemView.findViewById(R.id.content_topic_reply_avatar_image_view);
-                    if (networkImageView != null) {
-                        networkImageView.setImageUrl("https:" + v2exTopicReplyModel.memberModel.avatar_large, imageLoader);
-                    }
+            TextView nodeTopicTitleTextView = (TextView) listItemView.findViewById(R.id.topic_info_title_text_view);
+            if (nodeTopicTitleTextView != null) {
 
-                    TextView userNameTextView = (TextView) listItemView.findViewById(R.id.content_topic_reply_user_name_text_view);
-                    if (userNameTextView != null) {
-                        userNameTextView.setText("@" + v2exTopicReplyModel.memberModel.username);
-                        userNameTextView.setTypeface(null, Typeface.BOLD);
-                    }
+                nodeTopicTitleTextView.setTypeface(null, Typeface.BOLD);
+                nodeTopicTitleTextView.setText(v2exBaseModel.title);
+            }
 
-                    TextView contentTextView = (TextView) listItemView.findViewById(R.id.content_topic_reply_content_text_view);
-                    if (contentTextView != null) {
+            NetworkImageView networkImageView = (NetworkImageView) listItemView.findViewById(R.id.topic_avatar_image_view);
+            if (networkImageView != null) {
 
-                        contentTextView.setText(v2exTopicReplyModel.content);
-                    }
+                networkImageView.setImageUrl("https:" + v2exBaseModel.memberModel.avatar_large, imageLoader);
+            }
+
+            TextView topicInfoNodeNameTextView = (TextView) listItemView.findViewById(R.id.topic_info_node_name_text_view);
+            if (topicInfoNodeNameTextView != null) {
+
+                topicInfoNodeNameTextView.setText(v2exBaseModel.nodeModel.title);
+                topicInfoNodeNameTextView.setTypeface(null, Typeface.BOLD);
+            }
+
+            TextView topicInfoRepliesNumTextView = (TextView) listItemView.findViewById(R.id.topic_info_replies_num);
+            if (topicInfoRepliesNumTextView != null) {
+                topicInfoRepliesNumTextView.setText(v2exBaseModel.replies);
+            }
+
+            TextView topicInfoUserNameTextView = (TextView) listItemView.findViewById(R.id.topic_info_user_name_title);
+            if (topicInfoUserNameTextView != null) {
+                topicInfoUserNameTextView.setTypeface(null, Typeface.BOLD);
+                topicInfoUserNameTextView.setText("@" + v2exBaseModel.memberModel.username);
+            }
+        } else if (getItemViewType(position) == 1) {
+
+            TextView contentInfoTextView = (TextView) listItemView.findViewById(R.id.topic_info_content_info_text_view);
+            if (contentInfoTextView != null) {
+
+                contentInfoTextView.setText(v2exBaseModel.content);
+            }
+        } else if (getItemViewType(position) == 2) {
+
+            int index = position - 2;
+            V2exTopicReplyModel v2exTopicReplyModel = (V2exTopicReplyModel)list.get(index);
+            if (v2exTopicReplyModel != null) {
+
+                NetworkImageView networkImageView = (NetworkImageView) listItemView.findViewById(R.id.content_topic_reply_avatar_image_view);
+                if (networkImageView != null) {
+                    networkImageView.setImageUrl("https:" + v2exTopicReplyModel.memberModel.avatar_large, imageLoader);
+                }
+
+                TextView userNameTextView = (TextView) listItemView.findViewById(R.id.content_topic_reply_user_name_text_view);
+                if (userNameTextView != null) {
+                    userNameTextView.setText("@" + v2exTopicReplyModel.memberModel.username);
+                    userNameTextView.setTypeface(null, Typeface.BOLD);
+                }
+
+                TextView contentTextView = (TextView) listItemView.findViewById(R.id.content_topic_reply_content_text_view);
+                if (contentTextView != null) {
+
+                    contentTextView.setText(v2exTopicReplyModel.content);
                 }
             }
         }

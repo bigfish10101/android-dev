@@ -39,7 +39,7 @@
                 android:orientation="horizontal"
                 >
                 <TextView
-                    android:layout_width="44dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginTop="6dp"
                     android:background="@color/tapBackgroudColor"
@@ -50,7 +50,7 @@
                     android:id="@+id/node_name"
                     />
                 <TextView
-                    android:layout_width="80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginTop="6dp"
                     android:textSize="13dp"
