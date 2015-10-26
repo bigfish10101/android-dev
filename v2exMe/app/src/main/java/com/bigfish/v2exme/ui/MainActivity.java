@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bigfish.v2exme.R;
 import com.google.gson.Gson;
+import com.umeng.analytics.MobclickAgent;
 
 import net.V2exNetwork;
 
@@ -127,6 +128,20 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        MobclickAgent.onPause(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        MobclickAgent.onResume(this);
     }
 
     // 点击最热新闻
