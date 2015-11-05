@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
-android:layout_height="120dp">
+android:layout_height="wrap_content"
+android:orientation="vertical"
+    >
 
-<TextView
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="120dp"
-    android:layout_marginTop="5dp"
-    android:textColor="@color/titleColor"
-    android:textSize="18dp"
-    android:id="@+id/topic_info_title_text_view"
-    />
-<com.android.volley.toolbox.NetworkImageView
-    android:layout_width="70dp"
-    android:layout_height="70dp"
-    android:layout_alignParentRight="true"
-    android:layout_marginTop="5dp"
-    android:layout_marginRight="10dp"
-    android:id="@+id/topic_avatar_image_view"
-    />
+    android:orientation="horizontal"
+    >
+    <com.android.volley.toolbox.NetworkImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/topic_avatar_image_view"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/titleColor"
+        android:textSize="18dp"
+        android:id="@+id/topic_info_title_text_view"
+        />
+</LinearLayout>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="26dp"
-    android:layout_marginTop="80dp"
-    android:layout_marginLeft="10dp"
+    android:layout_marginLeft="5dp"
     android:layout_marginRight="10dp"
+    android:layout_marginBottom="5dp"
     android:orientation="horizontal"
     >
 
@@ -66,4 +73,4 @@ android:layout_height="120dp">
         android:id="@+id/topic_info_replies_num"
         />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>
