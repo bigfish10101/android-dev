@@ -1,7 +1,6 @@
 package com.bigfish.v2exme.ui;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -55,8 +54,6 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         // 设置Tabs
         viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager());
