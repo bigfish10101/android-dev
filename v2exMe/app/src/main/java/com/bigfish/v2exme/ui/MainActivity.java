@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bigfish.v2exme.R;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 import com.umeng.analytics.MobclickAgent;
 
@@ -47,6 +48,10 @@ public class MainActivity extends AppCompatActivity implements IFragmentTapListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 初始化Fresco 一定要在 setContentView的上面
+        Fresco.initialize(this);
+
         setContentView(R.layout.activity_main);
 
         v2exNetwork = new V2exNetwork(this);

@@ -3,6 +3,7 @@ package com.bigfish.v2exme.ui;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.util.Log;
 import android.util.LruCache;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.bigfish.v2exme.R;
 import java.util.ArrayList;
 
 import com.android.volley.*;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import Models.*;
 
@@ -84,19 +86,10 @@ public class NewsAdapter extends BaseAdapter {
 
         if (v2exBaseModel != null) {
 
-            NetworkImageView avatarImageView = (NetworkImageView) listItemView.findViewById(R.id.avatar_image_view);
-            if (avatarImageView != null) {
+            SimpleDraweeView simpleDraweeView = (SimpleDraweeView) listItemView.findViewById(R.id.avatar_image_view);
+            if (simpleDraweeView != null) {
 
-                avatarImageView.setImageUrl("https:" + v2exBaseModel.memberModel.avatar_large, imageLoader);
-                avatarImageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if (tapAdapterViewListener != null) {
-                            tapAdapterViewListener.tapUserName(v2exBaseModel);
-                        }
-                    }
-                });
+                simpleDraweeView.setImageURI(Uri.parse("https:" + v2exBaseModel.memberModel.avatar_large));
             }
 
             TextView titleTextView = (TextView) listItemView.findViewById(R.id.list_item_title);
