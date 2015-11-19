@@ -29,5 +29,5 @@ dependencies {
     compile 'com.android.support:support-v4:21.0.+'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.umeng.analytics:analytics:latest.integration'
-
+    compile 'com.facebook.fresco:fresco:0.8.1+'
 }
